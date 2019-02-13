@@ -1,8 +1,21 @@
 //@throws IllegalArgumentException when either parameter is negative.
 
 public class KnightBoard{
-  public KnightBoard(int startingRows,int startingCols){
 
+  private int[][] board;
+
+  public KnightBoard(int startingRows,int startingCols){
+    if (startingRows < 0 || startingCols < 0){
+      throw new IllegalArgumentException();
+    }
+
+    board = new int[startingRows][startingCols];
+
+    for (int[] x: board){
+      for (int y: x){
+        y = 0;
+      }
+    }
   }
 
     //  Initialize the board to the correct size and make them all 0's
