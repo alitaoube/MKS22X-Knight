@@ -1,6 +1,10 @@
 //@throws IllegalArgumentException when either parameter is negative.
 
 public class KnightBoard{
+  public static void main(String[] args) {
+    KnightBoard q = new KnightBoard(5, 5);
+    System.out.println(q.toString());
+  }
 
   private int[][] board;
 
@@ -29,12 +33,13 @@ public class KnightBoard{
           output += " " + y;
         }
         else if (y == 0){
-          output += "_";
+          output += " _";
         }
         else{
           output += y;
         }
       }
+      output += '\n';
     }
     return output;
   }
@@ -46,21 +51,21 @@ public class KnightBoard{
   // @throws IllegalStateException when the board contains non-zero values.
   // @throws IllegalArgumentException when either parameter is negative
   //  or out of bounds.
-  public boolean solve(int startingRow, int startingCol){
-
-  }
+  // public boolean solve(int startingRow, int startingCol){
   //
-  // @throws IllegalStateException when the board contains non-zero values.
-  // @throws IllegalArgumentException when either parameter is negative
-  //  or out of bounds.
-  public int countSolutions(int startingRow, int startingCol){
-
-  }
-
-  // Suggestion:
-  private boolean solveH(int row ,int col, int level){
-
-  }
+  // }
+  // //
+  // // @throws IllegalStateException when the board contains non-zero values.
+  // // @throws IllegalArgumentException when either parameter is negative
+  // //  or out of bounds.
+  // public int countSolutions(int startingRow, int startingCol){
+  //
+  // }
+  //
+  // // Suggestion:
+  // private boolean solveH(int row ,int col, int level){
+  //
+  // }
   // level is the # of the knight
 
 }
