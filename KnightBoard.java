@@ -22,7 +22,21 @@ public class KnightBoard{
 
 
   public String toString(){
-
+    String output = "";
+    for (int[] x: board){
+      for (int y: x){
+        if ( y > 0 && y < 10){
+          output += " " + y;
+        }
+        else if (y == 0){
+          output += "_";
+        }
+        else{
+          output += y;
+        }
+      }
+    }
+    return output;
   }
   // see format for toString below
   // blank boards display 0's as underscores
