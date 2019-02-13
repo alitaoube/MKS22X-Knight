@@ -43,6 +43,7 @@ public class KnightBoard{
     }
     return output;
   }
+
   // see format for toString below
   // blank boards display 0's as underscores
   // you get a blank board if you never called solve or
@@ -51,21 +52,25 @@ public class KnightBoard{
   // @throws IllegalStateException when the board contains non-zero values.
   // @throws IllegalArgumentException when either parameter is negative
   //  or out of bounds.
-  // public boolean solve(int startingRow, int startingCol){
+  public boolean solve(int startingRow, int startingCol){
+
+  }
   //
-  // }
-  // //
-  // // @throws IllegalStateException when the board contains non-zero values.
-  // // @throws IllegalArgumentException when either parameter is negative
-  // //  or out of bounds.
-  // public int countSolutions(int startingRow, int startingCol){
-  //
-  // }
-  //
-  // // Suggestion:
-  // private boolean solveH(int row ,int col, int level){
-  //
-  // }
+  // @throws IllegalStateException when the board contains non-zero values.
+  // @throws IllegalArgumentException when either parameter is negative
+  //  or out of bounds.
+  public int countSolutions(int startingRow, int startingCol){
+    board[startingRow][StartingCol] = 1;
+
+    return solveH(board.length, board[startingRow].length, 1);
+  }
+
+  // Suggestion:
+  private boolean solveH(int row ,int col, int level){
+    if (level == row * col) return true;
+
+
+  }
   // level is the # of the knight
 
 }
