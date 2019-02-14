@@ -30,10 +30,10 @@ public class KnightBoard{
     for (int[] x: board){
       for (int y: x){
         if ( y > 0 && y < 10){
-          output += " " + y;
+          output += "  " + y;
         }
         else if (y == 0){
-          output += "_";
+          output += " _";
         }
         else{
           output += " " + y;
