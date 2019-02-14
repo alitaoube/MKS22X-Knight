@@ -30,10 +30,10 @@ public class KnightBoard{
     for (int[] x: board){
       for (int y: x){
         if ( y > 0 && y < 10){
-          output += "  " + y;
+          output += " " + y;
         }
         else if (y == 0){
-          output += " _";
+          output += " _ ";
         }
         else{
           output += " " + y;
@@ -53,9 +53,8 @@ public class KnightBoard{
   // @throws IllegalArgumentException when either parameter is negative
   //  or out of bounds.
   public boolean solve(int startingRow, int startingCol){
-    board[startingRow][startingCol] = 1;
 
-    return solveH(board.length - 1, board[startingRow].length - 1, 2);
+    return solveH(startingRow, startingCol, 1);
   }
   //
   // @throws IllegalStateException when the board contains non-zero values.
@@ -76,7 +75,6 @@ public class KnightBoard{
     // throw new IllegalArgumentException();
     if (row < 0 || col < 0 || row >= board.length || col >= board[row].length) return false;
 
-    System.out.println(row + ", " + col);
     if (level == row * col) return true;
 
       if (board[row][col] == 0) {
