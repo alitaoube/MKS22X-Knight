@@ -2,8 +2,8 @@
 
 public class KnightBoard{
   public static void main(String[] args) {
-    KnightBoard q = new KnightBoard(5, 5);
-    System.out.println(q.toString());
+    KnightBoard q = new KnightBoard(8, 8);
+    System.out.println(q.solve(2, 2));
   }
 
   private int[][] board;
@@ -33,10 +33,10 @@ public class KnightBoard{
           output += " " + y;
         }
         else if (y == 0){
-          output += " _";
+          output += "_";
         }
         else{
-          output += y;
+          output += " " + y;
         }
       }
       output += '\n';
@@ -55,7 +55,7 @@ public class KnightBoard{
   public boolean solve(int startingRow, int startingCol){
     board[startingRow][startingCol] = 1;
 
-    return solveH(board.length, board[startingRow].length, 1);
+    return solveH(board.length - 1, board[startingRow].length - 1, 2);
   }
   //
   // @throws IllegalStateException when the board contains non-zero values.
@@ -65,12 +65,46 @@ public class KnightBoard{
   //
   // }
 
+  // private int numMoves(int row, int col){
+  //   int count = 0;
+  //   if (row + 2 < board.length && row + 2 <board[row + 2][col - 1] == 0) count++;
+  //   if (board[row - 1][col + 2] == 0) count++
+  // }
+
   // Suggestion:
   private boolean solveH(int row ,int col, int level){
+    // throw new IllegalArgumentException();
+    if (row < 0 || col < 0 || row >= board.length || col >= board[row].length) return false;
+
+    System.out.println(row + ", " + col);
     if (level == row * col) return true;
 
+      if (board[row][col] == 0) {
+        board[row][col] = level;
+      }
+      else{
+        // System.out.println("")
+        return false;
+      }
 
+      System.out.println(this.toString());
+
+    // try{
+      return (solveH(row+2, col - 1, level+1)||
+      solveH(row + 1, col - 2, level+1)||
+      solveH(row - 1, col - 2, level+1)||
+      solveH(row - 2, col - 1, level+1)||
+      solveH(row - 1, col + 2, level+1)||
+      solveH(row + 2, col + 1, level+1)||
+      solveH(row +1, col + 2, level+1)||
+      solveH(row - 2, col + 1, level+1));
+    // }
+    // catch(IllegalArgumentException|IllegalStateException e){
+    //   System.out.println("Test1");
+    //   return false;
+    // }
   }
+
   // level is the # of the knight
 
 }
