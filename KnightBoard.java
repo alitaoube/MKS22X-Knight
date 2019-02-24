@@ -3,10 +3,11 @@
 public class KnightBoard{
   public static void main(String[] args) {
     KnightBoard q = new KnightBoard(8, 8);
-    System.out.println(q.solve(2, 2));
+    System.out.println(q.solve(0, 0));
   }
 
   private int[][] board;
+  private static int[]moves = {2, -1, 1, -2, -1, -2, -2, -1, -1, 2, 2, 1, 1, 2, -2, 1};
 
   public KnightBoard(int startingRows,int startingCols){
     if (startingRows < 0 || startingCols < 0){
@@ -72,35 +73,38 @@ public class KnightBoard{
 
   // Suggestion:
   private boolean solveH(int row ,int col, int level){
-    // throw new IllegalArgumentException();
-    if (row < 0 || col < 0 || row >= board.length || col >= board[row].length) return false;
-
-    if (level == row * col) return true;
-
-      if (board[row][col] == 0) {
-        board[row][col] = level;
-      }
-      else{
-        // System.out.println("")
-        return false;
-      }
-
-      System.out.println(this.toString());
-
     // try{
-      return (solveH(row+2, col - 1, level+1)||
-      solveH(row + 1, col - 2, level+1)||
-      solveH(row - 1, col - 2, level+1)||
-      solveH(row - 2, col - 1, level+1)||
-      solveH(row - 1, col + 2, level+1)||
-      solveH(row + 2, col + 1, level+1)||
-      solveH(row +1, col + 2, level+1)||
-      solveH(row - 2, col + 1, level+1));
+
+    if (row < 0 || col < 0 || row >= board.length || col >= board[row].length){
+      return false;
+    }
+
+    System.out.println(this.toString());
+
+
+    if (board[row][col] == 0){
+      board[row][col] = level;
+    }
+
+    System.out.println(this.toString());
+
+      // if (row < 0 || col < 0 || row >= board.length || col >= board[row].length) {
+      //   board[row][col] = 0;
+      //   return false;
+      // }
+      // else if (board[row][col] == 0)
     // }
-    // catch(IllegalArgumentException|IllegalStateException e){
-    //   System.out.println("Test1");
-    //   return false;
+    // catch(IllegalArgumentException e){
+
     // }
+
+    for (int x = 0; x < moves.length - 1; x++){
+      if ((solveH(row+x, row + (x+1), level+1))) {
+        return true;
+      }
+      board[row][col] = 0;
+    }
+      return true;
   }
 
   // level is the # of the knight
