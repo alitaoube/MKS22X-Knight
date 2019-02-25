@@ -72,6 +72,17 @@ public class KnightBoard{
   //
   // }
 
+  private boolean checker(){
+    for (int x = 0; x < board.length; x++){
+      for (int y = 0; y < board[x].length; y++){
+        if (board[x][y] == 0){
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
   // Suggestion:
   private boolean solveH(int row ,int col, int level){
     // try{
@@ -80,24 +91,29 @@ public class KnightBoard{
       return false;
     }
 
-    System.out.println(this.toString());
+    if (checker()){
+      return true;
+    }
+
 
 
     if (board[row][col] != 0){
       return false;
     }
     else{
-      board[row][col] = 1;
+      board[row][col] = level;
     }
 
     System.out.println(this.toString());
 
-    for (int x = 0; x < moves.length - 1; x++){
-      if ((solveH(row+x, row + (x+1), level+1))) {
-        return true;
+    if (!checker()){
+      for (int x = 0; x < moves.length; x+=2){
+        if ((solveH(row+moves[x], col + moves[(x+1)] , level+1))) {
+          return true;
+        }
       }
-      board[row][col] = 0;
     }
+
       return true;
   }
 
