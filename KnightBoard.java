@@ -2,7 +2,7 @@
 
 public class KnightBoard{
   public static void main(String[] args) {
-    KnightBoard q = new KnightBoard(8, 8);
+    KnightBoard q = new KnightBoard(3, 4);
     System.out.println(q.solve(0, 0));
   }
 
@@ -87,34 +87,45 @@ public class KnightBoard{
   private boolean solveH(int row ,int col, int level){
     // try{
 
-    if (row < 0 || col < 0 || row >= rows || col >= cols){
-      return false;
-    }
 
-    if (checker()){
+
+    if (level == rows * cols){
       return true;
     }
-
-
-
-    if (board[row][col] != 0){
-      return false;
-    }
     else{
-      board[row][col] = level;
-    }
+      if (row < 0 || col < 0 || row >= rows || col >= cols){
+        return false;
+      }
 
-    System.out.println(this.toString());
+      if (board[row][col] != 0){
+        return false;
+      }
+      else{
+        board[row][col] = level;
+      }
 
-    if (!checker()){
-      for (int x = 0; x < moves.length; x+=2){
-        if ((solveH(row+moves[x], col + moves[(x+1)] , level+1))) {
-          return true;
+
+
+
+      if (!checker()){
+        for (int x = 0; x < moves.length; x+=2){
+          if ((solveH(row+moves[x], col + moves[(x+1)] , level+1))) {
+            return true;
+          }
         }
       }
     }
+    board[row][col] = 0;
+    System.out.println(this.toString());
 
-      return true;
+    return false;
+
+
+
+
+
+
+
   }
 
   // level is the # of the knight
