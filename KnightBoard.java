@@ -6,13 +6,20 @@ public class KnightBoard{
     System.out.println(q.solve(0, 0));
   }
 
+
+
   private int[][] board;
+  private int rows, cols;
   private static int[]moves = {2, -1, 1, -2, -1, -2, -2, -1, -1, 2, 2, 1, 1, 2, -2, 1};
 
   public KnightBoard(int startingRows,int startingCols){
+
     if (startingRows < 0 || startingCols < 0){
       throw new IllegalArgumentException();
     }
+
+    rows = startingRows;
+    cols = startingCols;
 
     board = new int[startingRows][startingCols];
 
@@ -65,38 +72,25 @@ public class KnightBoard{
   //
   // }
 
-  // private int numMoves(int row, int col){
-  //   int count = 0;
-  //   if (row + 2 < board.length && row + 2 <board[row + 2][col - 1] == 0) count++;
-  //   if (board[row - 1][col + 2] == 0) count++
-  // }
-
   // Suggestion:
   private boolean solveH(int row ,int col, int level){
     // try{
 
-    if (row < 0 || col < 0 || row >= board.length || col >= board[row].length){
+    if (row < 0 || col < 0 || row >= rows || col >= cols){
       return false;
     }
 
     System.out.println(this.toString());
 
 
-    if (board[row][col] == 0){
-      board[row][col] = level;
+    if (board[row][col] != 0){
+      return false;
+    }
+    else{
+      board[row][col] = 1;
     }
 
     System.out.println(this.toString());
-
-      // if (row < 0 || col < 0 || row >= board.length || col >= board[row].length) {
-      //   board[row][col] = 0;
-      //   return false;
-      // }
-      // else if (board[row][col] == 0)
-    // }
-    // catch(IllegalArgumentException e){
-
-    // }
 
     for (int x = 0; x < moves.length - 1; x++){
       if ((solveH(row+x, row + (x+1), level+1))) {
