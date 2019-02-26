@@ -2,7 +2,7 @@
 
 public class KnightBoard{
   public static void main(String[] args) {
-    KnightBoard q = new KnightBoard(8, 8);
+    KnightBoard q = new KnightBoard(5, 5);
     System.out.println(q.solve(0, 0));
   }
 
