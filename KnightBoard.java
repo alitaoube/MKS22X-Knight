@@ -107,16 +107,15 @@ public class KnightBoard{
       }
 
 
-      System.out.println(this.toString());
+      // System.out.println(this.toString());
 
 
         for (int x = 0; x < moves.length; x+=2){
-          if ((solveH(row+moves[x], col + moves[(x+1)] , level+1))) {
-            return true;
+            if ((solveH(row+moves[x], col + moves[(x+1)] , level+1))) {
+              return true;
           }
-
-        System.out.println(this.toString());
-        System.out.println("1");
+        // System.out.println(this.toString());
+        // System.out.println("1");
       }
 
       board[row][col] = 0;
