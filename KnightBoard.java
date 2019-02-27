@@ -166,42 +166,31 @@ public class KnightBoard{
 
 }
 
-private boolean oSolveH(int row ,int col, int level){
-  board[row][col] = level;
-  ArrayList<ArrayList<Integer>> poss = new ArrayList<ArrayList<Integer>>();
-  // int[][] possible = new int[100][100];
+  private class Tile implements Comparable<Tile> {
+    int num, row, col;
 
-  if (level == board.length * board[0].length + 1) return true;
+    public Tile(int r, int c, int n){
+      row = r;
+      col = c;
+      num = n;
+    }
 
-  for (int x = 0; x < moves.length; x++){
-    if (isValid(row + moves[x][0], col + moves[x][1])){
-      ArrayList<Integer> temp = new ArrayList<Integer>();
-      temp.add(row + moves[x][0]);
-      temp.add(col + moves[x][1]);
-      poss.add(temp);
-      temp.clear();
+    public int compareTo(Tile x){
+      return this.num - x.num;
+    }
+
+
+    // ACCESSOR METHODS
+    public int getRow(){
+      return row;
+    }
+
+    public int getCol(){
+      return col;
+    }
+
+    public int getNum(){
+      return num;
     }
   }
-  int low = 0;
-  int idx = 0;
-
-  for (int x = 0; x < poss.size(); x++){
-    // System.out.println(poss.get(idx).get(0));
-    // System.out.println(poss.get(idx).get(1));
-
-    if (poss.size() == 0) {
-      System.out.print(toString());
-      return true;
-    }
-
-    if (moveboard[poss.get(x).get(0)][poss.get(x).get(1)] < low ) {
-      low = moveboard[poss.get(x).get(0)][poss.get(x).get(1)];
-      idx = x;
-    }
-  }
-  return (oSolveH(poss.get(idx).get(0), poss.get(idx).get(1), level+1)) ;
-}
-
-  // level is the # of the knight
-
 }
