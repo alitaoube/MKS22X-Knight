@@ -2,7 +2,7 @@
 
 public class KnightBoard{
   public static void main(String[] args) {
-    KnightBoard q = new KnightBoard(5, 5);
+    KnightBoard q = new KnightBoard(7, 7);
     System.out.println(q.solve(0, 0));
   }
 
@@ -83,45 +83,38 @@ public class KnightBoard{
     return true;
   }
 
+  private boolean addKnight(int row, int col, int level){
+    if (row < 0 || row >= board.length || col < 0 || col >= board[row].length) return false;
+    if (board[row][col] != 0) return false;
+    board[row][col] = level;
+  return true;
+}
+
+  private boolean removeKnight(int row, int col, int level){
+    if (row < 0 || row >= board.length || col < 0 || col >= board[row].length) return false;
+
+    if (board[row][col] == 0) return false;
+
+    board[row][col] = 0;
+    return true;
+  }
+
+
   // Suggestion:
   private boolean solveH(int row ,int col, int level){
-    // try{
 
-    if (row < 0 || col < 0 || row >= rows || col >= cols){
-      return false;
-    }
+    if (level == board.length * board[row].length + 1) return true; // Has to be greater so +1
 
-    if (level > rows * cols){
-      if (checker()){
-        return true;
-      }
-      return false;
-    }
-    else{
-
-      if (board[row][col] != 0){
-        return false;
-      }
-      else{
-        board[row][col] = level;
-      }
-
-
-      // System.out.println(this.toString());
-
-
-        for (int x = 0; x < moves.length; x+=2){
-            if ((solveH(row+moves[x], col + moves[(x+1)] , level+1))) {
-              return true;
-          }
-        // System.out.println(this.toString());
-        // System.out.println("1");
-      }
-
-      board[row][col] = 0;
-      return false;
+    if (addKnight(row, col, level)){
+      for (int x = 0; x < moves.length; x+=2){
+          if ((solveH(row+moves[x], col + moves[(x+1)] , level+1))) {
+            return true;
+        }
     }
   }
+  return false;
+
+}
 
   // level is the # of the knight
 
