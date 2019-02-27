@@ -76,19 +76,15 @@ public class KnightBoard{
   // @throws IllegalArgumentException when either parameter is negative
   //  or out of bounds.
   public boolean solve(int startingRow, int startingCol){
-    if (startingRow >= board.length || startingCol >= board[startingRow].length) {
-      // System.out.println("HERE");
+
+    try{
+      if (checker()) throw new IllegalStateException();
+    }
+    catch(IllegalStateException e){
+      e.printStackTrace();
       return false;
     }
-
-    for (int x = startingRow; x < board.length; x++){
-      for (int y = startingCol; y < board[x].length; y++){
-        if (oSolveH(x, y, 1)) return true;
-        removeKnight(x, y);
-      }
-
-    }
-    return false;
+    return oSolveH(startingRow, startingCol, 1);
   }
   //
   // @throws IllegalStateException when the board contains non-zero values.
