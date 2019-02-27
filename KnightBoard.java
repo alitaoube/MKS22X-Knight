@@ -1,11 +1,9 @@
 import java.util.*; //ArrayList, Collections
 
 public class KnightBoard{
-  //testcase must be a valid index of your input/output array
 
   private int[][] board;
   private int[][] moveboard;
-  private int rows, cols;
   private static int[][]moves = {{2, -1}, {1, -2}, {-1, -2}, {-2, -1}, {-1, 2}, {2, 1}, {1, 2}, {-2, 1}} ;
 
   public KnightBoard(int startingRows,int startingCols){
@@ -13,9 +11,6 @@ public class KnightBoard{
     if (startingRows < 0 || startingCols < 0){
       throw new IllegalArgumentException();
     }
-
-    rows = startingRows;
-    cols = startingCols;
 
     board = new int[startingRows][startingCols];
     moveboard = new int[startingRows][startingCols];
@@ -163,8 +158,8 @@ private boolean oSolveH(int row, int col, int level){
 
  ArrayList<Tile> poss = new ArrayList<Tile>();
  for (int x = 0; x < moves.length; x++){
-   rows = row + moves[x][0];
-   cols = col + moves[x][1]; // You use these values 3 times, worth storing them
+   int rows = row + moves[x][0];
+   int cols = col + moves[x][1]; // You use these values 3 times, worth storing them
    if (isValid(rows, cols)){
      poss.add(new Tile(rows, cols, moveboard[rows][cols]));
    }
