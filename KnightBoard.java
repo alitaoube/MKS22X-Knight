@@ -76,7 +76,7 @@ public class KnightBoard{
   // @throws IllegalArgumentException when either parameter is negative
   //  or out of bounds.
   public boolean solve(int startingRow, int startingCol){
-
+    if (!isValid(startingRow, startingCol)) throw new IllegalArgumentException();
     try{
       if (checker()) throw new IllegalStateException();
     }
