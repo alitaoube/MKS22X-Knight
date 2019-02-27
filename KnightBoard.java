@@ -1,4 +1,4 @@
-//@throws IllegalArgumentException when either parameter is negative.
+import Java.util.ArrayList;
 
 public class KnightBoard{
   public static void main(String[] args) {
@@ -98,6 +98,10 @@ public class KnightBoard{
   //
   // }
 
+  private boolean isValid(row, col){
+    return (row >= 0 && col <= 0 && r < board.length && c < board[row].length);
+  }
+
   private boolean checker(){
     for (int x = 0; x < board.length; x++){
       for (int y = 0; y < board[x].length; y++){
@@ -153,7 +157,7 @@ public class KnightBoard{
 
     if (addKnight(row, col, level)){
       for (int x = 0; x < moves.length; x+=2){
-          if ((solveH(row+moves[x], col + moves[(x+1)] , level+1))) {
+          if ((solveH(row+moves[x][0], col + moves[x][(x+1)] , level+1))) {
             return true;
         }
     }
@@ -161,6 +165,19 @@ public class KnightBoard{
   return false;
 
 }
+
+private boolean oSolveH(int row ,int col, int level){
+  board[row][col] = level;
+
+  if (level == board.length * board[0].length + 1) return true;
+
+  for (int x = 0; x < moves.length; x++){
+    if (isValid(row + moves[i][0], col + moves[i][1])){
+      
+    }
+  }
+}
+
 
   // level is the # of the knight
 
