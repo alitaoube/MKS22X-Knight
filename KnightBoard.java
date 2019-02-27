@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.*; //ArrayList, Collections
 
 public class KnightBoard{
   public static void main(String[] args) {
@@ -99,7 +99,7 @@ public class KnightBoard{
   // }
 
   private boolean isValid(int row, int col){
-    return (row >= 0 && col <= 0 && row < board.length && col < board[row].length);
+    return (row >= 0 && col >= 0 && row < board.length && col < board[row].length && board[row][col] == 0);
   }
 
   private boolean checker(){
@@ -165,6 +165,38 @@ public class KnightBoard{
   return false;
 
 }
+
+  private boolean oSolveH(int row, int col, int level){
+    board[row][col] = level;
+
+    System.out.print(toString());
+
+    if (level == board.length * board[0].length + 1) return true;
+
+    ArrayList<Tile> poss = new ArrayList<Tile>();
+    for (int x = 0; x < moves.length; x++){
+      rows = row + moves[x][0];
+      cols = col + moves[x][1]; // You use these values 3 times, worth storing them
+      if (isValid(rows, cols)){
+        poss.add(new Tile(rows, cols, moveboard[rows][cols]));
+      }
+    }
+    Collections.sort(poss); // Collections uses compareTo to sort, which was suggested in class (I listen!)
+
+    for (Tile x : poss){
+      moveboard[x.getRow()][x.getCol()]--;
+    }
+
+    for (Tile x : poss){
+      int temp = moveboard[x.getRow()][x.getCol()]; // Storing previous value
+      if (oSolveH(x.getRow(), x.getCol(), level+1)){
+        return true;            // Same as before
+      }
+      moveboard[x.getRow()][x.getCol()] = temp; // Reset it
+    }
+    board[row][col] = 0; // Backtrack
+    return false;
+  }
 
   private class Tile implements Comparable<Tile> {
     int num, row, col;
