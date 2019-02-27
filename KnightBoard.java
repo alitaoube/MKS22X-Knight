@@ -168,13 +168,25 @@ public class KnightBoard{
 
 private boolean oSolveH(int row ,int col, int level){
   board[row][col] = level;
+  ArrayList<ArrayList<Integer>> poss = new ArrayList<ArrayList<Integer>>();
+  // int[][] possible = new int[100][100];
 
   if (level == board.length * board[0].length + 1) return true;
 
   for (int x = 0; x < moves.length; x++){
     if (isValid(row + moves[i][0], col + moves[i][1])){
-      
+      ArrayList<Integer> temp = new ArrayList<Integer>();
+      temp.add(row + moves[i][0]);
+      temp.add(col + moves[i][1]);
+      poss.set(x) = temp;
+      temp.clear();
     }
+  }
+  int low = 0;
+  int idx = 0;
+  
+  for (int x = 0; x < poss.size(); x++){
+    if
   }
 }
 
