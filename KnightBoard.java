@@ -1,4 +1,4 @@
-import Java.util.ArrayList;
+import java.util.ArrayList;
 
 public class KnightBoard{
   public static void main(String[] args) {
@@ -98,8 +98,8 @@ public class KnightBoard{
   //
   // }
 
-  private boolean isValid(row, col){
-    return (row >= 0 && col <= 0 && r < board.length && c < board[row].length);
+  private boolean isValid(int row, int col){
+    return (row >= 0 && col <= 0 && row < board.length && col < board[row].length);
   }
 
   private boolean checker(){
@@ -174,22 +174,28 @@ private boolean oSolveH(int row ,int col, int level){
   if (level == board.length * board[0].length + 1) return true;
 
   for (int x = 0; x < moves.length; x++){
-    if (isValid(row + moves[i][0], col + moves[i][1])){
+    if (isValid(row + moves[x][0], col + moves[x][1])){
       ArrayList<Integer> temp = new ArrayList<Integer>();
-      temp.add(row + moves[i][0]);
-      temp.add(col + moves[i][1]);
-      poss.set(x) = temp;
+      temp.add(row + moves[x][0]);
+      temp.add(col + moves[x][1]);
+      poss.set(x, temp);
       temp.clear();
     }
   }
   int low = 0;
   int idx = 0;
-  
-  for (int x = 0; x < poss.size(); x++){
-    if
-  }
-}
 
+  for (int x = 0; x < poss.size(); x++){
+    System.out.println(poss.get(idx).get(0));
+    System.out.println(poss.get(idx).get(1));
+
+    if (moveboard[poss.get(x).get(0)][poss.get(x).get(1)] < low ) {
+      low = moveboard[poss.get(x).get(0)][poss.get(x).get(1)];
+      idx = x;
+    }
+  }
+  return (oSolveH(poss.get(idx).get(0), poss.get(idx).get(1), level+1)) ;
+}
 
   // level is the # of the knight
 
