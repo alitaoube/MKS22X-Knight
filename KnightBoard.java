@@ -2,7 +2,7 @@
 
 public class KnightBoard{
   public static void main(String[] args) {
-    KnightBoard q = new KnightBoard(7, 7);
+    KnightBoard q = new KnightBoard(94, 94);
     System.out.println(q.solve(0, 0));
   }
 
@@ -62,7 +62,17 @@ public class KnightBoard{
   //  or out of bounds.
   public boolean solve(int startingRow, int startingCol){
 
-    return solveH(startingRow, startingCol, 1);
+    if (startingRow >= board.length || startingCol >= board[startingRow].length) {
+      // System.out.println("HERE");
+      return false;
+    }
+
+    for (int x = startingRow; x < board.length; x++){
+      for (int y = startingCol; y < board[x].length; y++){
+        if (solveH(x, y, 1)) return true;
+      }
+    }
+    return false;
   }
   //
   // @throws IllegalStateException when the board contains non-zero values.
@@ -76,6 +86,7 @@ public class KnightBoard{
     for (int x = 0; x < board.length; x++){
       for (int y = 0; y < board[x].length; y++){
         if (board[x][y] == 0){
+          // System.out.println("HERE");
           return false;
         }
       }
@@ -84,7 +95,12 @@ public class KnightBoard{
   }
 
   private boolean addKnight(int row, int col, int level){
-    if (row < 0 || row >= board.length || col < 0 || col >= board[row].length) return false;
+    if (row < 0 || row >= board.length || col < 0 || col >= board[row].length){
+      // System.out.println(toString());
+      // System.out.println("HERE1");
+      return checker();
+      // return false;
+    }
     if (board[row][col] != 0) return false;
     board[row][col] = level;
   return true;
@@ -103,7 +119,7 @@ public class KnightBoard{
   // Suggestion:
   private boolean solveH(int row ,int col, int level){
 
-    if (level == board.length * board[row].length + 1) return true; // Has to be greater so +1
+    if (level == board.length * board[0].length + 1) return true; // Has to be greater so +1
 
     if (addKnight(row, col, level)){
       for (int x = 0; x < moves.length; x+=2){
