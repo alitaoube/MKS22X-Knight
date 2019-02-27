@@ -2,13 +2,14 @@
 
 public class KnightBoard{
   public static void main(String[] args) {
-    KnightBoard q = new KnightBoard(94, 94);
+    KnightBoard q = new KnightBoard(9, 9);
     System.out.println(q.solve(0, 0));
   }
 
 
 
   private int[][] board;
+  private int[][] moveboard;
   private int rows, cols;
   private static int[]moves = {2, -1, 1, -2, -1, -2, -2, -1, -1, 2, 2, 1, 1, 2, -2, 1};
 
@@ -61,11 +62,12 @@ public class KnightBoard{
   // @throws IllegalArgumentException when either parameter is negative
   //  or out of bounds.
   public boolean solve(int startingRow, int startingCol){
-
     if (startingRow >= board.length || startingCol >= board[startingRow].length) {
       // System.out.println("HERE");
       return false;
     }
+
+
 
     for (int x = startingRow; x < board.length; x++){
       for (int y = startingCol; y < board[x].length; y++){
@@ -106,20 +108,12 @@ public class KnightBoard{
   return true;
 }
 
-  private boolean removeKnight(int row, int col, int level){
-    if (row < 0 || row >= board.length || col < 0 || col >= board[row].length) return false;
-
-    if (board[row][col] == 0) return false;
-
-    board[row][col] = 0;
-    return true;
-  }
-
-
   // Suggestion:
   private boolean solveH(int row ,int col, int level){
 
     if (level == board.length * board[0].length + 1) return true; // Has to be greater so +1
+
+    // System.out.println(toString());
 
     if (addKnight(row, col, level)){
       for (int x = 0; x < moves.length; x+=2){
