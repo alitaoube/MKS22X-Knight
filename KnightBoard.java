@@ -85,6 +85,8 @@ public class KnightBoard{
   // @throws IllegalArgumentException when either parameter is negative
   //  or out of bounds.
   public int countSolutions(int startingRow, int startingCol){
+    if (startingRow < 0 || startingCol < 0) throw new IllegalArgumentException();
+
     try{
       if (checker()) throw new IllegalStateException();
     }
@@ -166,7 +168,7 @@ return true;
 
 private boolean oSolveH(int row, int col, int level){
  board[row][col] = level;
- 
+
  if (level == board.length * board[0].length) return true;
 
  ArrayList<Tile> poss = new ArrayList<Tile>();
