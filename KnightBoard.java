@@ -83,7 +83,7 @@ public class KnightBoard{
 
     for (int x = startingRow; x < board.length; x++){
       for (int y = startingCol; y < board[x].length; y++){
-        if (solveH(x, y, 1)) return true;
+        if (oSolveH(x, y, 1)) return true;
         removeKnight(x, y);
       }
 
@@ -178,7 +178,7 @@ private boolean oSolveH(int row ,int col, int level){
       ArrayList<Integer> temp = new ArrayList<Integer>();
       temp.add(row + moves[x][0]);
       temp.add(col + moves[x][1]);
-      poss.set(x, temp);
+      poss.add(temp);
       temp.clear();
     }
   }
@@ -186,8 +186,13 @@ private boolean oSolveH(int row ,int col, int level){
   int idx = 0;
 
   for (int x = 0; x < poss.size(); x++){
-    System.out.println(poss.get(idx).get(0));
-    System.out.println(poss.get(idx).get(1));
+    // System.out.println(poss.get(idx).get(0));
+    // System.out.println(poss.get(idx).get(1));
+
+    if (poss.size() == 0) {
+      System.out.print(toString());
+      return true;
+    }
 
     if (moveboard[poss.get(x).get(0)][poss.get(x).get(1)] < low ) {
       low = moveboard[poss.get(x).get(0)][poss.get(x).get(1)];
