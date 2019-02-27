@@ -9,9 +9,9 @@ public class KnightBoard{
 
 
   private int[][] board;
-  // private int[][] moveboard;
+  private int[][] moveboard;
   private int rows, cols;
-  private static int[]moves = {2, -1, 1, -2, -1, -2, -2, -1, -1, 2, 2, 1, 1, 2, -2, 1};
+  private static int[][]moves = {{2, -1}, {1, -2}, {-1, -2}, {-2, -1}, {-1, 2}, {2, 1}, {1, 2}, {-2, 1}} ;
 
   public KnightBoard(int startingRows,int startingCols){
 
@@ -23,10 +23,24 @@ public class KnightBoard{
     cols = startingCols;
 
     board = new int[startingRows][startingCols];
+    moveboard = new int[startingRows][startingCols];
+    initMoveBoard();
 
     for (int[] x: board){
       for (int y: x){
         y = 0;
+      }
+    }
+  }
+
+  private void initMoveBoard(){
+    for (int x = 0; x < board.length; x++){
+      for (int y = 0; y < board[x].length; y++){
+        int sum = 0;
+        for (int[] move : moves){
+          if (x + move[0] >= 0 && x + move[0] < board.length && y + move[1] >= 0 && y + move[1] < board[0].length) sum++;
+        }
+        moveboard[x][y] = sum;
       }
     }
   }
