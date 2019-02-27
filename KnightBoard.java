@@ -1,12 +1,7 @@
 import java.util.*; //ArrayList, Collections
 
 public class KnightBoard{
-  public static void main(String[] args) {
-    KnightBoard q = new KnightBoard(8, 8);
-    System.out.println(q.solve(0, 0));
-  }
-
-
+  //testcase must be a valid index of your input/output array
 
   private int[][] board;
   private int[][] moveboard;
@@ -66,7 +61,6 @@ public class KnightBoard{
     }
     return output;
   }
-
   // see format for toString below
   // blank boards display 0's as underscores
   // you get a blank board if you never called solve or
@@ -90,15 +84,39 @@ public class KnightBoard{
   // @throws IllegalStateException when the board contains non-zero values.
   // @throws IllegalArgumentException when either parameter is negative
   //  or out of bounds.
-  // public int countSolutions(int startingRow, int startingCol){
-  //
-  // }
+  public int countSolutions(int startingRow, int startingCol){
+    try{
+      if (checker()) throw new IllegalStateException();
+    }
+    catch(IllegalStateException e){
+      e.printStackTrace();
+    }
+    board[startingRow][startingCol] = 1;
+    return countSolH(startingRow, startingCol, 0, 2);
+  }
+
+
+
+  public int countSolH(int row, int col, int solutions, int level){
+    if (level == board.length * board[0].length + 1) solutions++;
+
+    for (int x = 0; x < moves.length; x++){
+      int r = row + moves[x][0];
+      int c = col + moves[x][1];
+      if (addKnight(r, c, level)){
+        int track = countSolH(r, c, solutions, level+1);
+        if (track > solutions) solutions = track;
+        board[r][c] = 0;
+      }
+    }
+    return solutions;
+  }
 
   private boolean isValid(int row, int col){
     return (row >= 0 && col >= 0 && row < board.length && col < board[row].length && board[row][col] == 0);
   }
 
-  private boolean checker(){
+  private boolean checker(){ // Returns false if it's not completely full, true if its full
     for (int x = 0; x < board.length; x++){
       for (int y = 0; y < board[x].length; y++){
         if (board[x][y] == 0){
@@ -109,30 +127,14 @@ public class KnightBoard{
     }
     return true;
   }
-  //
-  // private initNewBoard(){
-  //   moveboard = new int[board.length][board[0].length];
-  //
-  //   for (int x = 0; x < moveboard.length; x++){
-  //     for (int y = 0; y < moveboard[x].length; y++){
-  //       for (int z = 0; z < moves.length; z+=2){
-  //
-  //         if (row+moves[x], col + moves[(x+1)] , level+1))
-  //       }
-  //     }
-  //   }
-  // }
 
   private boolean addKnight(int row, int col, int level){
-    if (row < 0 || row >= board.length || col < 0 || col >= board[row].length){
-      // System.out.println(toString());
-      // System.out.println("HERE1");
-      return checker();
-      // return false;
-    }
-    if (board[row][col] != 0) return false;
-    board[row][col] = level;
-  return true;
+  if (row < 0 || row >= board.length || col < 0 || col >= board[row].length){
+    return false;
+  }
+  if (board[row][col] != 0) return false;
+  board[row][col] = level;
+return true;
 }
 
   private boolean removeKnight(int row, int col){
@@ -162,37 +164,35 @@ public class KnightBoard{
 
 }
 
-  private boolean oSolveH(int row, int col, int level){
-    board[row][col] = level;
+private boolean oSolveH(int row, int col, int level){
+ board[row][col] = level;
+ 
+ if (level == board.length * board[0].length) return true;
 
-    // System.out.print(toString());
+ ArrayList<Tile> poss = new ArrayList<Tile>();
+ for (int x = 0; x < moves.length; x++){
+   rows = row + moves[x][0];
+   cols = col + moves[x][1]; // You use these values 3 times, worth storing them
+   if (isValid(rows, cols)){
+     poss.add(new Tile(rows, cols, moveboard[rows][cols]));
+   }
+ }
+ Collections.sort(poss); // Collections uses compareTo to sort, which was suggested in class (I listen!)
 
-    if (level == board.length * board[0].length) return true;
+ for (Tile x : poss){
+   moveboard[x.getRow()][x.getCol()]--;
+ }
 
-    ArrayList<Tile> poss = new ArrayList<Tile>();
-    for (int x = 0; x < moves.length; x++){
-      rows = row + moves[x][0];
-      cols = col + moves[x][1]; // You use these values 3 times, worth storing them
-      if (isValid(rows, cols)){
-        poss.add(new Tile(rows, cols, moveboard[rows][cols]));
-      }
-    }
-    Collections.sort(poss); // Collections uses compareTo to sort, which was suggested in class (I listen!)
-
-    for (Tile x : poss){
-      moveboard[x.getRow()][x.getCol()]--;
-    }
-
-    for (Tile x : poss){
-      int temp = moveboard[x.getRow()][x.getCol()]; // Storing previous value
-      if (oSolveH(x.getRow(), x.getCol(), level+1)){
-        return true;            // Same as before
-      }
-      moveboard[x.getRow()][x.getCol()] = temp; // Reset it
-    }
-    board[row][col] = 0; // Backtrack
-    return false;
-  }
+ for (Tile x : poss){
+   int temp = moveboard[x.getRow()][x.getCol()]; // Storing previous value
+   if (oSolveH(x.getRow(), x.getCol(), level+1)){
+     return true;            // Same as before
+   }
+   moveboard[x.getRow()][x.getCol()] = temp; // Reset it
+ }
+ board[row][col] = 0; // Backtrack
+ return false;
+}
 
 }
 
