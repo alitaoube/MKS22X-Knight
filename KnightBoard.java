@@ -165,9 +165,9 @@ public class KnightBoard{
   private boolean oSolveH(int row, int col, int level){
     board[row][col] = level;
 
-    System.out.print(toString());
+    // System.out.print(toString());
 
-    if (level == board.length * board[0].length + 1) return true;
+    if (level == board.length * board[0].length) return true;
 
     ArrayList<Tile> poss = new ArrayList<Tile>();
     for (int x = 0; x < moves.length; x++){
@@ -194,7 +194,9 @@ public class KnightBoard{
     return false;
   }
 
-  private class Tile implements Comparable<Tile> {
+}
+
+  class Tile implements Comparable<Tile> {
     int num, row, col;
 
     public Tile(int r, int c, int n){
@@ -221,4 +223,3 @@ public class KnightBoard{
       return num;
     }
   }
-}
