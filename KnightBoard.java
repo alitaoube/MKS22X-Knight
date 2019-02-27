@@ -122,7 +122,6 @@ public class KnightBoard{
     for (int x = 0; x < board.length; x++){
       for (int y = 0; y < board[x].length; y++){
         if (board[x][y] == 0){
-          // System.out.println("HERE");
           return false;
         }
       }
@@ -136,17 +135,8 @@ public class KnightBoard{
   }
   if (board[row][col] != 0) return false;
   board[row][col] = level;
-return true;
+  return true;
 }
-
-  private boolean removeKnight(int row, int col){
-    if (row < 0 || row >= board.length || col < 0 || col >= board[row].length) return false;
-
-    if (board[row][col] == 0) return false;
-
-    board[row][col] = 0;
-    return true;
-  }
 
   // Suggestion:
   private boolean solveH(int row ,int col, int level){
